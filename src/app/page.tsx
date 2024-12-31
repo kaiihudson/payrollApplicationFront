@@ -1,13 +1,11 @@
 
 import {PeopleStoreProvider} from "@/providers/people-provider";
-import PeopleList from "./users/peopleList";
+import { People } from "./users/people";
 
 export default function Home() {
   return (
     <PeopleStoreProvider>
-      <div className="items-center justify-center flex flex-col gap-4">
-        <PeopleList />
-      </div>
+      <People />
     </PeopleStoreProvider>
   );
 }

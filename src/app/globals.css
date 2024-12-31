@@ -6,3 +6,15 @@ input[type="text"] {
   @apply bg-gray-200;
 }
 
+td {
+  @apply px-2;
+  @apply py-1;
+}
+th {
+  @apply px-2;
+  @apply py-1;
+}
+
+table {
+  @apply w-full;
+}

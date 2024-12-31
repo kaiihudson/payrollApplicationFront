@@ -1,18 +1,30 @@
 import {createStore} from 'zustand/vanilla'
+import { Person } from './types'
 
 export type PeopleState = {
-    people: object[] 
+    people: Person[]
+    person: Person 
 }
 
 export type PeopleActions = {
     fetchPeople: () => void
     createPerson: (formData: FormData) => void
+    deletePerson: (id: number) => void
+    selectPerson: (person: Person) => void
+    resetPerson: () => void
 }
 
 export type PeopleStore = PeopleState & PeopleActions
 
 export const defaultPeopleState: PeopleState = {
-    people: []
+    people: [],
+    person: {
+        id: 0,
+        firstName: '',
+        lastName: '',
+        phoneNum: '',
+        address: ''
+    }
 }
 
 export const createPeopleStore = (
@@ -38,6 +50,13 @@ export const createPeopleStore = (
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(obj),
+        });
+    },
+    selectPerson: (person: Person) => set({person}),
+    resetPerson: () => set({person: defaultPeopleState.person}),
+    deletePerson: (id: number) => {
+        fetch(`http://localhost:8080/api/v1/person/${id}`, {
+            method: "DELETE",
         });
     }
 }))
