@@ -1,5 +1,6 @@
 import {createStore} from 'zustand/vanilla'
 import { Order } from './types'
+import fetcher from '@/lib/fetcher'
 
 export type OrdersState = {
     orders: Order[]
@@ -7,7 +8,7 @@ export type OrdersState = {
 }
 
 export type OrdersActions = {
-    fetchOrders: (id: number) => void
+    fetchOrders: (id: number) => Promise<void>
     fetchCompletedOrders: (id: number) => void
     selectOrder: (order: Order) => void
     resetOrder: () => void
@@ -30,11 +31,12 @@ export const createOrdersStore = (
     initState: OrdersState = defaultOrdersState,
 ) => createStore<OrdersStore>((set) => ({
     ...initState,
-    fetchOrders: (id: number) => {
-        fetch(`http://localhost:8080/api/v1/order?id=${id}`)
-            .then((res) => res.json())
-            .then((json)=> json._embedded.appOrderDTOList)
-            .then((orders) => set({orders}))
+    fetchOrders: async (id: number) => {
+        const res = await fetcher(`http://localhost:8080/api/v1/order?id=${id}`)
+        if(res?._embedded){
+            set({orders: res?._embedded?.appOrderDTOList })
+        }
+        
     },
     fetchCompletedOrders: (id: number) => {
         fetch(`http://localhost:8080/api/v1/complete_order?id=${id}`)

@@ -15,7 +15,7 @@ export interface PeopleStoreProviderProps {
 export const PeopleStoreProvider = ({
     children,
 }: PeopleStoreProviderProps) => {
-    const storeRef = useRef<PeopleStoreApi>()
+    const storeRef = useRef<PeopleStoreApi>(null)
     if (!storeRef.current) {
         storeRef.current = createPeopleStore()
     }

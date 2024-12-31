@@ -1,3 +1,5 @@
+'use client'
+
 import { createItemsStore, ItemsStore } from "@/stores/items-store";
 import { useContext, useRef, createContext } from "react";
 import { useStore } from "zustand";
@@ -13,7 +15,7 @@ export interface ItemsStoreProviderProps{
 export const ItemsStoreProvider = ({
     children,
 }: ItemsStoreProviderProps ) => {
-    const storeRef = useRef<ItemsStoreApi>()
+    const storeRef = useRef<ItemsStoreApi>(null)
     if(!storeRef.current) {
         createItemsStore()
     }

@@ -1,3 +1,5 @@
+'use client'
+
 import { createOrdersStore, OrdersStore } from "@/stores/orders-store";
 import { createContext, useContext, useRef } from "react";
 import { useStore } from "zustand";
@@ -13,7 +15,7 @@ export interface OrdersStoreProviderProps {
 export const OrdersStoreProvider = ({
     children,
 }: OrdersStoreProviderProps) => {
-    const storeRef = useRef<OrdersStoreApi>()
+    const storeRef = useRef<OrdersStoreApi>(null)
     if (!storeRef.current) {
         storeRef.current = createOrdersStore()
     }

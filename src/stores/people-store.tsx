@@ -1,5 +1,6 @@
 import {createStore} from 'zustand/vanilla'
 import { Person } from './types'
+import fetcher from '@/lib/fetcher'
 
 export type PeopleState = {
     people: Person[]
@@ -7,7 +8,7 @@ export type PeopleState = {
 }
 
 export type PeopleActions = {
-    fetchPeople: () => void
+    fetchPeople: () => Promise<void>
     createPerson: (formData: FormData) => void
     deletePerson: (id: number) => void
     selectPerson: (person: Person) => void
@@ -31,11 +32,9 @@ export const createPeopleStore = (
     initState: PeopleState = defaultPeopleState,
 ) => createStore<PeopleStore>((set) => ({
     ...initState,
-    fetchPeople: () => {
-        fetch('http://localhost:8080/api/v1/people')
-            .then((res) => res.json())
-            .then((json)=> json._embedded.personList)
-            .then((people) => set({people}))
+    fetchPeople: async () => {
+        const res = await fetcher('http://localhost:8080/api/v1/people')
+        set({people: res?._embedded?.personList})
     },
     createPerson: (formData: FormData) => {
         const obj: any = {
