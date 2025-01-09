@@ -5,11 +5,13 @@ import fetcher from '@/lib/fetcher'
 export type PeopleState = {
     people: Person[]
     person: Person 
+    pages: number
+    page: number
 }
 
 export type PeopleActions = {
-    fetchPeople: () => Promise<void>
-    createPerson: (formData: FormData) => void
+    fetchPeople: (page?: number) => Promise<void>
+    createPerson: (formData: FormData) => Promise<void>
     deletePerson: (id: number) => void
     selectPerson: (person: Person) => void
     resetPerson: () => void
@@ -25,25 +27,32 @@ export const defaultPeopleState: PeopleState = {
         lastName: '',
         phoneNum: '',
         address: ''
-    }
+    },
+    pages: 1,
+    page: 1
 }
 
 export const createPeopleStore = (
     initState: PeopleState = defaultPeopleState,
 ) => createStore<PeopleStore>((set) => ({
     ...initState,
-    fetchPeople: async () => {
-        const res = await fetcher('http://localhost:8080/api/v1/people')
-        set({people: res?._embedded?.personList})
+    fetchPeople: async (page?) => {
+        if (page) {
+            const res = await fetcher(`http://localhost:8080/api/v1/people?page=${page}`)
+            set({people: res?._embedded?.entityModelList, pages: res?.page?.totalPages, page: page})
+        } else {
+            const res = await fetcher('http://localhost:8080/api/v1/people')
+            set({people: res?._embedded?.entityModelList, pages: res?.page?.totalPages})
+        }
     },
-    createPerson: (formData: FormData) => {
+    createPerson: async (formData: FormData) => {
         const obj: any = {
             firstName: formData.get("firstName"),
             lastName: formData.get("lastName"),
             phoneNum: formData.get("phoneNum"),
             address: formData.get("address"),
         };
-        fetch("http://localhost:8080/api/v1/people", {
+        await fetcher("http://localhost:8080/api/v1/people", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

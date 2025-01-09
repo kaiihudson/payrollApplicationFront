@@ -3,8 +3,13 @@
 import { usePeopleStore } from "@/providers/people-provider";
 import Form from "next/form";
 
-export const FormNewPerson = () => {
+export const FormNewPerson = ({closeModal}:{closeModal: Function}) => {
   const { createPerson } = usePeopleStore((state) => state);
+
+  const createPersonAndCloseModal = async (formData: FormData)=> {
+    await createPerson(formData)
+    closeModal()
+  }
 
 
   //TODO: add some sort of animation to confirm the creation of the user
@@ -17,7 +22,7 @@ export const FormNewPerson = () => {
           Close this modal to check your new users
         </p>
       </div>
-      <Form action={createPerson} className="flex flex-col">
+      <Form action={createPersonAndCloseModal} className="flex flex-col">
         <label htmlFor="firstName">Name</label>
         <input type="text" id="firstName" name="firstName" />
         <label htmlFor="lastName">Last Name</label>

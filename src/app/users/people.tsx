@@ -7,10 +7,12 @@ import { PersonBreadcrumb } from "./personBreadcrumb";
 export const People = () => {
   const { person } = usePeopleStore((state) => state);
   return (
-    <div className="bg-gray-200 w-full">
+    <div>
       {person.id == 0 && (
         <div>
-          <h1>Select a person</h1>
+          <h1 className="text-2x1 font-bold justify-center flex">
+            Select a person
+          </h1>
           <br />
           <PeopleList />
         </div>
