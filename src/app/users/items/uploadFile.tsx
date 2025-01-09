@@ -2,10 +2,10 @@ import { Order } from "@/stores/types"
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
-const UploadFile = ({order, onClose} : {order: Order, onClose: Function}) => {
+const UploadFile = ({ order, onClose }: { order: Order, onClose: Function }) => {
     const [isUploading, setIsUploading] = useState(false)
     const [uploadStatus, setUploadStatus] = useState('')
-    const onDrop = useCallback(async (acceptedFiles:any) => {
+    const onDrop = useCallback(async (acceptedFiles: any) => {
         if (acceptedFiles.length === 0) {
             return;
         }
@@ -37,8 +37,8 @@ const UploadFile = ({order, onClose} : {order: Order, onClose: Function}) => {
         }
     }, [])
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({
-        onDrop,  
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
         multiple: false
     })
 
@@ -47,13 +47,13 @@ const UploadFile = ({order, onClose} : {order: Order, onClose: Function}) => {
             className="min-h-80 min-w-80 justify-center flex border-2 border-black"
             {...getRootProps()}
         >
-            <input 
-            {...getInputProps()}
-            type="file" />
+            <input
+                {...getInputProps()}
+                type="file" />
             {isDragActive ? (
-            <p>Drop your File here</p>
+                <p>Drop your File here</p>
             ) : (
-            <p>Drag and drop your file here or click here to select a file</p>
+                <p>Drag and drop your file here or click here to select a file</p>
             )}
             {isUploading && <p>Uploading File...</p>}
             <br />

@@ -10,8 +10,9 @@ export const PersonBreadcrumb = () => {
       <div className="px-2 border-r border-black bg-gray-300 rounded-l-lg">
         <p>{person.name}</p>
         <br />
-        <button onClick={resetPerson}> <LuChevronLeft/> Back to People</button>
+        <button onClick={resetPerson}> <LuChevronLeft /> Back to People</button>
       </div>
+      
       <div className="w-9/10">
         <OrdersStoreProvider>
           <Orders />

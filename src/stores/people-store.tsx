@@ -1,10 +1,10 @@
-import {createStore} from 'zustand/vanilla'
+import { createStore } from 'zustand/vanilla'
 import { Person } from './types'
 import fetcher from '@/lib/fetcher'
 
 export type PeopleState = {
     people: Person[]
-    person: Person 
+    person: Person
     pages: number
     page: number
 }
@@ -39,10 +39,10 @@ export const createPeopleStore = (
     fetchPeople: async (page?) => {
         if (page) {
             const res = await fetcher(`http://localhost:8080/api/v1/people?page=${page}`)
-            set({people: res?._embedded?.entityModelList, pages: res?.page?.totalPages, page: page})
+            set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages, page: page })
         } else {
             const res = await fetcher('http://localhost:8080/api/v1/people')
-            set({people: res?._embedded?.entityModelList, pages: res?.page?.totalPages})
+            set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages })
         }
     },
     createPerson: async (formData: FormData) => {
@@ -60,8 +60,8 @@ export const createPeopleStore = (
             body: JSON.stringify(obj),
         });
     },
-    selectPerson: (person: Person) => set({person}),
-    resetPerson: () => set({person: defaultPeopleState.person}),
+    selectPerson: (person: Person) => set({ person }),
+    resetPerson: () => set({ person: defaultPeopleState.person }),
     deletePerson: (id: number) => {
         fetch(`http://localhost:8080/api/v1/person/${id}`, {
             method: "DELETE",

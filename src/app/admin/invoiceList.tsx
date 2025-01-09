@@ -3,8 +3,8 @@ import { useOrdersStore } from "@/providers/orders-provider";
 import { Invoice } from "@/stores/types";
 import { useEffect } from "react";
 
-const InvoiceList = ({openUpdate} : {openUpdate: Function}) => {
-  const { invoices, fetchAllInvoices } = useInvoiceStore((state) => state);
+const InvoiceList = ({ openUpdate }: { openUpdate: Function }) => {
+  const { invoices, fetchAllInvoices, selectInvoice } = useInvoiceStore((state) => state);
   useEffect(() => {
     fetchAllInvoices();
   }, []);
@@ -27,12 +27,21 @@ const InvoiceList = ({openUpdate} : {openUpdate: Function}) => {
             {invoices?.length &&
               invoices.map((invoice: Invoice) => (
                 <tr key={invoice.id}>
-                  <td>OC #{invoice.id}</td>
+                  <td>
+                    <button
+                      value={invoice.id}
+                      onClick={() => {
+                        selectInvoice(invoice)
+                      }}
+                    >
+                      OC #{invoice.id}
+                    </button>
+                  </td>
                   <td>{invoice.loader}</td>
                   <td>{invoice.status}</td>
                   <td>{invoice.invoiceTotal}</td>
                   <td>{invoice.orderList.length}</td>
-                  <th><button onClick={()=> {openUpdate()}}>Update</button></th>
+                  <th><button onClick={() => { openUpdate() }}>Update</button></th>
                 </tr>
               ))}
           </tbody>

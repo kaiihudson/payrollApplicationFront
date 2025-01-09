@@ -55,17 +55,17 @@ export default function PeopleList() {
       <br />
       {pages > 1 && (
         <div className="flex flex-row">
-        {Array.from({ length: pages }, (_, i) => (
-          <div key={i}>
-            <button
-              onClick={() => fetchPeople(i)}
-              className="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600"
-            >
-              {i + 1}
-            </button>
-          </div>
-        ))}
-      </div>
+          {Array.from({ length: pages }, (_, i) => (
+            <div key={i}>
+              <button
+                onClick={() => fetchPeople(i)}
+                className="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600"
+              >
+                {i + 1}
+              </button>
+            </div>
+          ))}
+        </div>
       )}
       {/* TODO: add search function */}
       <table>
@@ -109,7 +109,7 @@ export default function PeopleList() {
         </tbody>
       </table>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <FormNewPerson closeModal={closeModal}/>
+        <FormNewPerson closeModal={closeModal} />
       </Modal>
       <Modal isOpen={isConfirmModalOpen} onClose={closeDeleteModal}>
         <ConfirmDelete person={person} closeModal={closeDeleteModal} />

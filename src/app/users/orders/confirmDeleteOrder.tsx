@@ -9,11 +9,11 @@ export const ConfirmDeleteOrder = ({
   closeDelete: Function;
   order: Order;
 }) => {
-    const deleteAndClose = async (id: number) => {
-        await deleteOrder(id)
-        closeDelete()
-    }
-    return (
+  const deleteAndClose = async (id: number) => {
+    await deleteOrder(id)
+    closeDelete()
+  }
+  return (
     <div>
       <h1>Are you sure you want to Abort this Order</h1>
       <p>This process is permanent and it cannot be revoked.</p>
@@ -23,7 +23,7 @@ export const ConfirmDeleteOrder = ({
         className="flex flex-row gap-2"
       >
         <button
-            className="bg-red-100 text-red px-2 py-1 rounded-lg hover:bg-red-300"
+          className="bg-red-100 text-red px-2 py-1 rounded-lg hover:bg-red-300"
           onClick={() => {
             deleteAndClose(order.id);
           }}
@@ -31,7 +31,7 @@ export const ConfirmDeleteOrder = ({
           Delete
         </button>
         <button
-            className="bg-gray-200 px-2 py-1 rounded-lg hover:bg-gray-300"
+          className="bg-gray-200 px-2 py-1 rounded-lg hover:bg-gray-300"
           onClick={() => {
             closeDelete();
           }}

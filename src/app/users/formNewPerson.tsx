@@ -3,10 +3,10 @@
 import { usePeopleStore } from "@/providers/people-provider";
 import Form from "next/form";
 
-export const FormNewPerson = ({closeModal}:{closeModal: Function}) => {
+export const FormNewPerson = ({ closeModal }: { closeModal: Function }) => {
   const { createPerson } = usePeopleStore((state) => state);
 
-  const createPersonAndCloseModal = async (formData: FormData)=> {
+  const createPersonAndCloseModal = async (formData: FormData) => {
     await createPerson(formData)
     closeModal()
   }

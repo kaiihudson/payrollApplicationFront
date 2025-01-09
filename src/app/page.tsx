@@ -1,5 +1,5 @@
 
-import {PeopleStoreProvider} from "@/providers/people-provider";
+import { PeopleStoreProvider } from "@/providers/people-provider";
 import { People } from "./users/people";
 import Link from "next/link";
 

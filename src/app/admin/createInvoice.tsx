@@ -19,26 +19,27 @@ const CreateInvoice = () => {
   const handleAdd = (order: Order) => {
     if (selectedOrders.find((o) => o === order.id)) {
       setSelectedOrders(selectedOrders.filter((o) => o !== order.id));
-      if(order.orderTotal){
+      if (order.orderTotal) {
         setTotal(total - order.orderTotal)
       }
     } else {
       setSelectedOrders([...selectedOrders, order.id]);
-      if(order.orderTotal) {
+      if (order.orderTotal) {
         setTotal(total + order.orderTotal)
       }
     }
   };
   return (
+    
     <div>
       <div>
         <Form action={saveAndClose} className="flex flex-col">
           <label htmlFor="loader">Quien Carga?</label>
-          <input type="text" name="loader" id="loader" required/>
+          <input type="text" name="loader" id="loader" required />
           <label htmlFor="total">Total de la orden</label>
           <p>{total}</p>
-          <input type="text" name="total" id="total" hidden defaultValue={total}/>
-          <input type="text" name="orderList" id="orderList" hidden defaultValue={selectedOrders.toString()}/>
+          <input type="text" name="total" id="total" hidden defaultValue={total} />
+          <input type="text" name="orderList" id="orderList" hidden defaultValue={selectedOrders.toString()} />
           <button type="submit">Submit</button>
           <div>
             {orders.length == 0 && <p>No valid orders!</p>}

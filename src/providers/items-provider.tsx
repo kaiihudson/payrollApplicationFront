@@ -6,17 +6,17 @@ import { useStore } from "zustand";
 
 export type ItemsStoreApi = ReturnType<typeof createItemsStore>
 
-export const ItemsStoreContext = createContext<ItemsStoreApi | undefined>(undefined, )
+export const ItemsStoreContext = createContext<ItemsStoreApi | undefined>(undefined,)
 
-export interface ItemsStoreProviderProps{
+export interface ItemsStoreProviderProps {
     children: React.ReactNode
 }
 
 export const ItemsStoreProvider = ({
     children,
-}: ItemsStoreProviderProps ) => {
+}: ItemsStoreProviderProps) => {
     const storeRef = useRef<ItemsStoreApi>(null)
-    if(!storeRef.current) {
+    if (!storeRef.current) {
         createItemsStore()
     }
     return (
@@ -26,12 +26,12 @@ export const ItemsStoreProvider = ({
     )
 }
 
-export const useItemsStore = <T, >(
+export const useItemsStore = <T,>(
     selector: (store: ItemsStore) => T,
 ): T => {
     const itemsStoreContext = useContext(ItemsStoreContext)
 
-    if(!itemsStoreContext) {
+    if (!itemsStoreContext) {
         throw new Error('useItemsStore must be used within a ItemsStoreProvider')
     }
 

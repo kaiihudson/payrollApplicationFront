@@ -1,3 +1,4 @@
+
 import { PeopleStoreProvider } from "@/providers/people-provider";
 
 const UsersLayout = ({ children }: { children: React.ReactNode }) => {

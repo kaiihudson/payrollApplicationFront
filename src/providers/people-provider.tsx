@@ -6,7 +6,7 @@ import { useStore } from 'zustand'
 
 export type PeopleStoreApi = ReturnType<typeof createPeopleStore>
 
-export const PeopleStoreContext = createContext<PeopleStoreApi | undefined>(undefined, )
+export const PeopleStoreContext = createContext<PeopleStoreApi | undefined>(undefined,)
 
 export interface PeopleStoreProviderProps {
     children: ReactNode
@@ -23,10 +23,10 @@ export const PeopleStoreProvider = ({
         <PeopleStoreContext.Provider value={storeRef.current}>
             {children}
         </PeopleStoreContext.Provider>
-    )   
+    )
 }
 
-export const usePeopleStore = <T, >(
+export const usePeopleStore = <T,>(
     selector: (store: PeopleStore) => T,
 ): T => {
     const peopleStoreContext = useContext(PeopleStoreContext)
