@@ -17,8 +17,10 @@ const UploadFile = ({ order, onClose }: { order: Order, onClose: Function }) => 
         setIsUploading(true);
         setUploadStatus('')
 
+        const whUrl = process.env.NEXT_PUBLIC_WH_URL
+
         try {
-            const res = await fetch('http://localhost:5000/webhook', {
+            const res = await fetch(`${whUrl}/webhook`, {
                 method: 'POST',
                 body: formData
             })

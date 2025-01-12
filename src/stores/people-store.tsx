@@ -41,10 +41,18 @@ export const createPeopleStore = (
     fetchPeople: async (page?) => {
         if (page) {
             const res = await fetcher(`${apiUrl}/api/v1/people?page=${page}`)
-            set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages, page: page })
+            let peopleList: Person[] = []
+            if (res._embedded) {
+                peopleList = res._embedded.entityModelList
+            } 
+            set({ people: peopleList, pages: res?.page?.totalPages, page: page })
         } else {
-            const res = await fetcher('${apiUrl}/api/v1/people')
-            set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages })
+            const res = await fetcher(`${apiUrl}/api/v1/people`)
+            let peopleList: Person[] = []
+            if (res._embedded) {
+                peopleList = res._embedded.entityModelList
+            } 
+            set({ people: peopleList, pages: res?.page?.totalPages })
         }
     },
     createPerson: async (formData: FormData) => {
@@ -54,7 +62,7 @@ export const createPeopleStore = (
             phoneNum: formData.get("phoneNum"),
             address: formData.get("address"),
         };
-        await fetcher("${apiUrl}/api/v1/people", {
+        await fetcher(`${apiUrl}/api/v1/people`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -34,6 +34,8 @@ export const defaultOrdersState: OrdersState = {
     }
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const createOrdersStore = (
     initState: OrdersState = defaultOrdersState,
 ) => createStore<OrdersStore>((set) => ({
@@ -61,7 +63,7 @@ export const createOrdersStore = (
     selectOrder: (order: Order) => set({ order }),
     resetOrder: () => set({ order: defaultOrdersState.order }),
     createOrder: async (data: PartialOrder) => {
-        await fetch("${apiUrl}/api/v1/orders", {
+        await fetch(`${apiUrl}/api/v1/orders`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
