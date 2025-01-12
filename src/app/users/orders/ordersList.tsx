@@ -14,7 +14,6 @@ import { useOrdersStore } from "@/providers/orders-provider";
 import { usePeopleStore } from "@/providers/people-provider";
 import Modal from "../../modal";
 import { FormNewOrder } from "./orderModals/formNewOrder";
-import { tr } from "date-fns/locale";
 import { Order } from "@/stores/types";
 import { ConfirmDeleteOrder } from "./orderModals/confirmDeleteOrder";
 

@@ -5,7 +5,7 @@ import { useEffect } from "react"
 const ItemsList = ({ invoice }: { invoice: Invoice }) => {
     const { items, fetchOCItems } = useItemsStore((state) => state)
     useEffect(() => {
-        fetchOCItems(invoice.orderList)
+        fetchOCItems(invoice.id)
     }, [])
     return (
         <div className="w-9/10">

@@ -42,7 +42,6 @@ export const createInvoiceStore = (
             loader: formData.get("loader"),
             orderList: [formData.get("orderList")]
         }
-        console.log(obj)
         const res = await fetcher(`http://localhost:8080/api/v1/invoices`, {
             method:"POST",
             headers: {
