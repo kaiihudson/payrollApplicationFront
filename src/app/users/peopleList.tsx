@@ -4,8 +4,8 @@ import { usePeopleStore } from "@/providers/people-provider";
 import React, { useState, useEffect } from "react";
 import Modal from "../modal";
 import Form from "next/form";
-import { FormNewPerson } from "./formNewPerson";
-import { ConfirmDelete } from "./confirmDelete";
+import { FormNewPerson } from "./usersModals/formNewPerson";
+import { ConfirmDelete } from "./usersModals/confirmDelete";
 import { Person } from "@/stores/types";
 
 export default function PeopleList() {

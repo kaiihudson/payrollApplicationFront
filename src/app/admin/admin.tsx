@@ -1,9 +1,9 @@
 "use client";
 
 import { useInvoiceStore } from "@/providers/invoice-provider";
-import Invoices from "./invoices";
+import Invoices from "./invoices/invoices";
 import { ItemsStoreProvider } from "@/providers/items-provider";
-import { InvoiceBreadcrumb } from "./invoiceBreadcrumb";
+import { InvoiceBreadcrumb } from "./invoices/invoiceBreadcrumb";
 
 
 const Admin = () => {

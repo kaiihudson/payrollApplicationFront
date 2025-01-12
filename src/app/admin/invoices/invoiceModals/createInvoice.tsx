@@ -1,20 +1,23 @@
 "use client";
 
+import { useInvoiceStore } from "@/providers/invoice-provider";
 import { useOrdersStore } from "@/providers/orders-provider";
 import { Order } from "@/stores/types";
 import { format } from "date-fns";
 import Form from "next/form";
 import { useEffect, useState } from "react";
 
-const CreateInvoice = () => {
+const CreateInvoice = ({onClose}:{onClose: Function}) => {
   const { orders, fetchAllValidOrders } = useOrdersStore((state) => state);
+  const { postNewInvoice } = useInvoiceStore((state) => state)
   const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
   const [total, setTotal] = useState<number>(0)
   useEffect(() => {
     fetchAllValidOrders();
   }, []);
   const saveAndClose = (formData: FormData) => {
-    console.log("you did it!");
+    postNewInvoice(formData)
+    onClose()
   };
   const handleAdd = (order: Order) => {
     if (selectedOrders.find((o) => o === order.id)) {
@@ -30,7 +33,6 @@ const CreateInvoice = () => {
     }
   };
   return (
-    
     <div>
       <div>
         <Form action={saveAndClose} className="flex flex-col">

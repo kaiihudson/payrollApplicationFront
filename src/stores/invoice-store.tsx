@@ -11,6 +11,7 @@ export type InvoiceActions = {
     fetchAllInvoices: () => Promise<void>
     selectInvoice: (invoice: Invoice) => void
     resetInvoice: () => void
+    postNewInvoice: (formData: FormData) => Promise<void>
 }
 
 export type InvoiceStore = InvoiceState & InvoiceActions
@@ -35,5 +36,19 @@ export const createInvoiceStore = (
         set({ invoices: res })
     },
     selectInvoice: (invoice: Invoice) => set({ invoice }),
-    resetInvoice: () => set({ invoice: defaultInvoiceState.invoice })
+    resetInvoice: () => set({ invoice: defaultInvoiceState.invoice }),
+    postNewInvoice: async (formData: FormData) => {
+        const obj: any = {
+            loader: formData.get("loader"),
+            orderList: [formData.get("orderList")]
+        }
+        console.log(obj)
+        const res = await fetcher(`http://localhost:8080/api/v1/invoices`, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj)
+        })
+    }
 }))

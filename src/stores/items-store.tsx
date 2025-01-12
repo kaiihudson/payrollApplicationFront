@@ -8,7 +8,7 @@ export type ItemsState = {
 
 export type ItemsActions = {
     fetchItems: (id: number) => Promise<void>
-    fetchOCItems: (idList: number[]) => Promise<void>
+    fetchOCItems: (id: number) => Promise<void>
 }
 
 export type ItemsStore = ItemsState & ItemsActions
@@ -25,10 +25,8 @@ export const createItemsStore = (
         const res = await fetcher(`http://localhost:8080/api/v1/order/${id}/items`)
         set({ items: res })
     },
-    fetchOCItems: async (idList: number[]) => {
-        const res = await fetcher(`http://localhost:8080/api/v1/items_collection`, {
-            body: idList
-        })
+    fetchOCItems: async (invoiceId: number) => {
+        const res = await fetcher(`http://localhost:8080/api/v1/items_collection/${invoiceId}`)
         set({ items: res })
     }
 }))
