@@ -39,7 +39,7 @@ export const createOrdersStore = (
 ) => createStore<OrdersStore>((set) => ({
     ...initState,
     fetchOrders: async (id: number) => {
-        const res = await fetcher(`http://localhost:8080/api/v1/order?id=${id}`)
+        const res = await fetcher(`${apiUrl}/api/v1/order?id=${id}`)
         if (res?._embedded) {
             set({ orders: res?._embedded?.appOrderDTOList })
         }
@@ -47,21 +47,21 @@ export const createOrdersStore = (
     },
     fetchCompletedOrders: async (id: number, page?: number) => {
         if (page) {
-            const res = await fetcher(`http://localhost:8080/api/v1/complete_order?id=${id}&page=${page}`)
+            const res = await fetcher(`${apiUrl}/api/v1/complete_order?id=${id}&page=${page}`)
             set({ completedOrders: res?._embedded?.entityModelList, pages: res?.page?.totalPages })
         } else {
-            const res = await fetcher(`http://localhost:8080/api/v1/complete_order?id=${id}`)
+            const res = await fetcher(`${apiUrl}/api/v1/complete_order?id=${id}`)
             set({ completedOrders: res?._embedded?.entityModelList, pages: res?.page?.totalPages })
         }
     },
     fetchAllValidOrders: async () => {
-        const res = await fetcher(`http://localhost:8080/api/v1/orders`)
+        const res = await fetcher(`${apiUrl}/api/v1/orders`)
         set({ orders: res?._embedded?.appOrderDTOList })
     },
     selectOrder: (order: Order) => set({ order }),
     resetOrder: () => set({ order: defaultOrdersState.order }),
     createOrder: async (data: PartialOrder) => {
-        await fetch("http://localhost:8080/api/v1/orders", {
+        await fetch("${apiUrl}/api/v1/orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export const createOrdersStore = (
         });
     },
     deleteOrder: async (id: number) => {
-        const res = await fetcher(`http://localhost:8080/api/v1/order/${id}`, {
+        const res = await fetcher(`${apiUrl}/api/v1/order/${id}`, {
             method: "DELETE",
         })
         console.log("Order Deleted " + id)

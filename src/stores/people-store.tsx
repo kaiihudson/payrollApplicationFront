@@ -32,16 +32,18 @@ export const defaultPeopleState: PeopleState = {
     page: 1
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const createPeopleStore = (
     initState: PeopleState = defaultPeopleState,
 ) => createStore<PeopleStore>((set) => ({
     ...initState,
     fetchPeople: async (page?) => {
         if (page) {
-            const res = await fetcher(`http://localhost:8080/api/v1/people?page=${page}`)
+            const res = await fetcher(`${apiUrl}/api/v1/people?page=${page}`)
             set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages, page: page })
         } else {
-            const res = await fetcher('http://localhost:8080/api/v1/people')
+            const res = await fetcher('${apiUrl}/api/v1/people')
             set({ people: res?._embedded?.entityModelList, pages: res?.page?.totalPages })
         }
     },
@@ -52,7 +54,7 @@ export const createPeopleStore = (
             phoneNum: formData.get("phoneNum"),
             address: formData.get("address"),
         };
-        await fetcher("http://localhost:8080/api/v1/people", {
+        await fetcher("${apiUrl}/api/v1/people", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -63,7 +65,7 @@ export const createPeopleStore = (
     selectPerson: (person: Person) => set({ person }),
     resetPerson: () => set({ person: defaultPeopleState.person }),
     deletePerson: (id: number) => {
-        fetch(`http://localhost:8080/api/v1/person/${id}`, {
+        fetch(`${apiUrl}/api/v1/person/${id}`, {
             method: "DELETE",
         });
     }

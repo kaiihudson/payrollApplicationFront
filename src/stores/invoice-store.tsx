@@ -27,12 +27,14 @@ export const defaultInvoiceState: InvoiceState = {
     }
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const createInvoiceStore = (
     initState: InvoiceState = defaultInvoiceState,
 ) => createStore<InvoiceStore>((set) => ({
     ...initState,
     fetchAllInvoices: async () => {
-        const res = await fetcher(`http://localhost:8080/api/v1/invoices`)
+        const res = await fetcher(`${apiUrl}/api/v1/invoices`)
         set({ invoices: res })
     },
     selectInvoice: (invoice: Invoice) => set({ invoice }),
@@ -42,7 +44,7 @@ export const createInvoiceStore = (
             loader: formData.get("loader"),
             orderList: [formData.get("orderList")]
         }
-        const res = await fetcher(`http://localhost:8080/api/v1/invoices`, {
+        const res = await fetcher(`${apiUrl}/api/v1/invoices`, {
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
